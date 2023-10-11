@@ -23,7 +23,7 @@ import javax.persistence.PersistenceUnit;
  */
 @Named(value = "personaBean")
 @SessionScoped
-public class PersonaBean implements Serializable  {
+public class PersonaBean implements Serializable {
 
     private final EntityManager entityManager;
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.uv_DSWebPractica07_war_1.0-SNAPSHOTPU");
@@ -67,15 +67,20 @@ public class PersonaBean implements Serializable  {
     }
 
     public void eliminar(Persona persona) {
+
         try {
             entityManager.getTransaction().begin();
-            personas.remove(persona);
-            entityManager.remove(entityManager.contains(persona) ? persona : entityManager.merge(persona));
+            if (!entityManager.contains(persona)) {
+                persona = entityManager.merge(persona);
+            }
+            entityManager.remove(persona);
             entityManager.getTransaction().commit();
+            personas.remove(persona);
         } catch (Exception e) {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+           
         }
     }
 
@@ -94,4 +99,5 @@ public class PersonaBean implements Serializable  {
     public void setNuevaPersona(Persona nuevaPersona) {
         this.nuevaPersona = nuevaPersona;
     }
+
 }

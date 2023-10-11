@@ -10,7 +10,7 @@
     <h:body>
 
 
-        <h:form>
+        <h:form id="mainForm" >
             <h5>Datos</h5>
             <!-- Campo para la clave -->
             <span class="ui-float-label">
@@ -37,7 +37,7 @@
             <h:commandButton value="Agregar" action="#{personaBean.agregar}" />
         </h:form>
 
-        <p:dataTable value="#{personaBean.personas}" var="persona" paginator="true" rows="10" styleClass="YOUR_STYLE_HERE" rowKey="#{persona.clave}">
+        <p:dataTable id="tablaPrincipal" value="#{personaBean.personas}" var="persona" paginator="true" rows="10" styleClass="YOUR_STYLE_HERE" rowKey="#{persona.clave}">
 
             <p:column headerText="Clave">
                 <p:inputText value="#{persona.clave}" />
@@ -57,11 +57,12 @@
 
             <p:column>
                 <p:commandButton value="Actualizar" action="#{personaBean.actualizar(persona)}" />
-                <p:commandButton value="Eliminar" action="#{personaBean.eliminar(persona)}" />
+                <p:commandButton value="Eliminar" action="#{personaBean.eliminar(persona)}" >
+                
+                </p:commandButton>
             </p:column>
 
         </p:dataTable>
-
 
     </h:body>
 </html>
