@@ -3,7 +3,7 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://172.17.0.1:5432/mydb</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://172.17.0.2:5432/mydb</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">postgres</property>
         
@@ -25,5 +25,6 @@
         
         <!-- Mention annotated class here -->
         <!-- <mapping class="com.example.YourEntityClass"/> -->
+
     </session-factory>
 </hibernate-configuration>
