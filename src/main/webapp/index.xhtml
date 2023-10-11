@@ -8,40 +8,60 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-       <h:dataTable value="#{personaBean.personas}" var="persona">
-            <h:column>
-                <f:facet name="header">Clave</f:facet>
-                <h:inputText value="#{persona.clave}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Nombre</f:facet>
-                <h:inputText value="#{persona.nombre}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Dirección</f:facet>
-                <h:inputText value="#{persona.direccion}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Teléfono</f:facet>
-                <h:inputText value="#{persona.telefono}" />
-            </h:column>
-            <h:column>
-                <h:commandButton value="Actualizar" action="#{personaBean.actualizar(persona)}" />
-                <h:commandButton value="Eliminar" action="#{personaBean.eliminar(persona)}" />
-            </h:column>
-        </h:dataTable>
+
 
         <h:form>
+            <h5>Datos</h5>
             <!-- Campo para la clave -->
-            <h:outputLabel value="Clave:" for="claveInput" />
-            <h:inputText id="claveInput" value="#{personaBean.nuevaPersona.clave}" required="true" />
+            <span class="ui-float-label">
+                <p:inputText id="float-clave" value="#{personaBean.nuevaPersona.clave}"/>
+                <p:outputLabel for="@previous" value="clave"/>
+            </span>
+            <br/>
+            <span class="ui-float-label">
+                <p:inputText id="float-nombre" value="#{personaBean.nuevaPersona.nombre}"/>
+                <p:outputLabel for="@previous" value="nombre"/>
+            </span>
+            <br/>
+            <span class="ui-float-label">
+                <p:inputText id="float-direccion" value="#{personaBean.nuevaPersona.direccion}"/>
+                <p:outputLabel for="@previous" value="direccion"/>
+            </span>
+            <br/>
+            <span class="ui-float-label">
+                <p:inputText id="float-telefono" value="#{personaBean.nuevaPersona.telefono}"/>
+                <p:outputLabel for="@previous" value="telefono"/>
+            </span>
             <br/>
 
-            <h:inputText value="#{personaBean.nuevaPersona.nombre}"  />
-            <h:inputText value="#{personaBean.nuevaPersona.direccion}"  />
-            <h:inputText value="#{personaBean.nuevaPersona.telefono}"  />
             <h:commandButton value="Agregar" action="#{personaBean.agregar}" />
         </h:form>
+
+        <p:dataTable value="#{personaBean.personas}" var="persona" paginator="true" rows="10" styleClass="YOUR_STYLE_HERE" rowKey="#{persona.clave}">
+
+            <p:column headerText="Clave">
+                <p:inputText value="#{persona.clave}" />
+            </p:column>
+
+            <p:column headerText="Nombre">
+                <p:inputText value="#{persona.nombre}" />
+            </p:column>
+
+            <p:column headerText="Dirección">
+                <p:inputText value="#{persona.direccion}" />
+            </p:column>
+
+            <p:column headerText="Teléfono">
+                <p:inputText value="#{persona.telefono}" />
+            </p:column>
+
+            <p:column>
+                <p:commandButton value="Actualizar" action="#{personaBean.actualizar(persona)}" />
+                <p:commandButton value="Eliminar" action="#{personaBean.eliminar(persona)}" />
+            </p:column>
+
+        </p:dataTable>
+
 
     </h:body>
 </html>
