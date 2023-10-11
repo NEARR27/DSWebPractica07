@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:body>
+
+    <h:form>
+        <h:outputLabel for="nombre" value="Usuario:" />
+        <h:inputText id="nombre" value="#{loginBean.nombre_usuario}" />
+        
+        <h:outputLabel for="contrasena" value="Contraseña:" />
+        <h:inputSecret id="contrasena" value="#{loginBean.contrasena}" />
+
+        <h:commandButton value="Login" action="#{loginBean.login}" />
+    </h:form>
+
+</h:body>
+</html>
