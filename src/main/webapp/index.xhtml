@@ -1,12 +1,48 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+       <h:dataTable value="#{personaBean.personas}" var="persona">
+            <h:column>
+                <f:facet name="header">Clave</f:facet>
+                <h:inputText value="#{persona.clave}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nombre</f:facet>
+                <h:inputText value="#{persona.nombre}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dirección</f:facet>
+                <h:inputText value="#{persona.direccion}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Teléfono</f:facet>
+                <h:inputText value="#{persona.telefono}" />
+            </h:column>
+            <h:column>
+                <h:commandButton value="Actualizar" action="#{personaBean.actualizar(persona)}" />
+                <h:commandButton value="Eliminar" action="#{personaBean.eliminar(persona)}" />
+            </h:column>
+        </h:dataTable>
+
+        <h:form>
+            <!-- Campo para la clave -->
+            <h:outputLabel value="Clave:" for="claveInput" />
+            <h:inputText id="claveInput" value="#{personaBean.nuevaPersona.clave}" required="true" />
+            <br/>
+
+            <h:inputText value="#{personaBean.nuevaPersona.nombre}"  />
+            <h:inputText value="#{personaBean.nuevaPersona.direccion}"  />
+            <h:inputText value="#{personaBean.nuevaPersona.telefono}"  />
+            <h:commandButton value="Agregar" action="#{personaBean.agregar}" />
+        </h:form>
+
     </h:body>
 </html>
 
