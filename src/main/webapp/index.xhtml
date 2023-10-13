@@ -5,38 +5,79 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>CRUD</title>
+        <style>
+            .main-container {
+                display: flex;
+                flex-direction: column;
+                height: 20vh;
+            }
+
+            .content {
+                flex: 1;
+            }
+
+            .logout-button {
+                background-color: red !important;
+                border-color: darkred !important;
+            }
+        </style>
     </h:head>
     <h:body>
 
-        <h:form>
-            <!-- InputTexts con estilo de PrimeFaces -->
-            <p:inputText value="#{personaBean.persona.clave}" placeholder="Clave" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-            <p:inputText value="#{personaBean.persona.nombre}" placeholder="Nombre" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-            <p:inputText value="#{personaBean.persona.direccion}" placeholder="Dirección" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-            <p:inputText value="#{personaBean.persona.telefono}" placeholder="Teléfono" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-            <p:commandButton value="Agregar" action="#{personaBean.add}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" icon="ui-icon-plus"/>
 
-            <!-- DataTable con estilo de PrimeFaces -->
-            <p:dataTable value="#{personaBean.personas}" var="p" styleClass="ui-datatable ui-widget">
-                <p:column headerText="Nombre">
-                    #{p.clave}
-                </p:column>
-                <p:column headerText="Nombre">
-                    #{p.nombre}
-                </p:column>
-                <p:column headerText="Dirección">
-                    #{p.direccion}
-                </p:column>
-                <p:column headerText="Teléfono">
-                    #{p.telefono}
-                </p:column>
-                <p:column>
-                    <p:commandButton value="Eliminar" action="#{personaBean.delete(p.clave)}" icon="ui-icon-trash" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"/>
-                    <!-- Añade botones similares para editar y otras operaciones aquí -->
-                </p:column>
-            </p:dataTable>
-        </h:form>
+
+
+        <div class="main-container">
+            <div class="content">
+                <h:form>
+                    <p:growl id="msgs" showDetail="true" sticky="false" />
+                    <!-- InputTexts con estilo de PrimeFaces -->
+                    <p:inputText value="#{personaBean.persona.clave}" placeholder="Clave" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                    <p:inputText value="#{personaBean.persona.nombre}" placeholder="Nombre" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                    <p:inputText value="#{personaBean.persona.direccion}" placeholder="Dirección" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                    <p:inputText value="#{personaBean.persona.telefono}" placeholder="Teléfono" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                    <p:commandButton value="Agregar" action="#{personaBean.add}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" icon="ui-icon-plus">
+                        <p:ajax update="msgs" />
+                    </p:commandButton>
+                    
+                    <br></br>
+
+
+                    <p:dataTable value="#{personaBean.personas}" var="p" styleClass="ui-datatable ui-widget">
+                        <p:column headerText="Nombre">
+                            #{p.clave}
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            #{p.nombre}
+                        </p:column>
+                        <p:column headerText="Dirección">
+                            #{p.direccion}
+                        </p:column>
+                        <p:column headerText="Teléfono">
+                            #{p.telefono}
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Actualizar" action="#{personaBean.edit(p.clave)}" icon="ui-icon-trash" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"/>
+
+                            <p:commandButton value="Eliminar" action="#{personaBean.delete(p.clave)}" icon="ui-icon-trash" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"/>
+
+
+                        </p:column>
+                    </p:dataTable>
+                    <br></br>
+
+                    <!-- Botón Logout al final -->
+                    <p:commandButton value="Logout" action="#{loginBean.logout}" 
+                                     icon="ui-icon-exit" 
+                                     styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left logout-button"/>
+                </h:form>
+            </div>
+
+
+        </div>
+
+
     </h:body>
 </html>
 

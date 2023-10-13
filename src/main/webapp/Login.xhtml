@@ -5,19 +5,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-<h:body>
+    <h:head>
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
 
-    <h:form>
-        <h:outputLabel for="nombre" value="Usuario:" />
-        <h:inputText id="nombre" value="#{loginBean.nombre_usuario}" />
-        
-        <h:outputLabel for="contrasena" value="Contraseña:" />
-        <h:inputSecret id="contrasena" value="#{loginBean.contrasena}" />
+    <h:body>
 
-        <h:commandButton value="Login" action="#{loginBean.login}" />
-    </h:form>
+        <p:panel header="Login" style="width: 300px; margin: auto;">
 
-</h:body>
+            <h:form id="loginForm">
+
+                <!-- Usuario -->
+                <p:outputLabel for="nombre" value="Usuario:" style="display: block; margin-bottom: 5px;" />
+                <p:inputText id="nombre" value="#{loginBean.nombre_usuario}" style="width: 100%; margin-bottom: 15px;" />
+
+                <!-- Contraseña -->
+                <p:outputLabel for="contrasena" value="Contraseña:" style="display: block; margin-bottom: 5px;" />
+                <p:password id="contrasena" value="#{loginBean.contrasena}" style="width: 100%; margin-bottom: 15px;" feedback="false" />
+
+                <!-- Botón -->
+                <p:commandButton value="Login" action="#{loginBean.login}" icon="pi pi-check" style="width: 100%;" />
+
+            </h:form>
+
+        </p:panel>
+
+    </h:body>
 </html>
