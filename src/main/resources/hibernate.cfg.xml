@@ -25,6 +25,6 @@
         
         <!-- Mention annotated class here -->
         <!-- <mapping class="com.example.YourEntityClass"/> -->
-
+        <mapping class="com.uv.Persona"/>
     </session-factory>
 </hibernate-configuration>

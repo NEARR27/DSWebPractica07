@@ -13,6 +13,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
@@ -25,79 +27,32 @@ import javax.persistence.PersistenceUnit;
 @SessionScoped
 public class PersonaBean implements Serializable {
 
-    private final EntityManager entityManager;
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.uv_DSWebPractica07_war_1.0-SNAPSHOTPU");
+    private Persona persona = new Persona();
+    private PersonaDAO dao = new PersonaDAO();
 
-    private List<Persona> personas;
-    private Persona nuevaPersona = new Persona();
-
-    public PersonaBean() {
-        this.entityManager = emf.createEntityManager();
+    public Persona getPersona() {
+        return persona;
     }
 
-    @PostConstruct
-    public void init() {
-        personas = entityManager.createQuery("FROM Persona e", Persona.class).getResultList();
-    }
-
-    public void agregar() {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(nuevaPersona);
-            entityManager.getTransaction().commit();
-            personas.add(nuevaPersona);
-            nuevaPersona = new Persona();
-        } catch (Exception e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            }
-        }
-    }
-
-    public void actualizar(Persona persona) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.merge(persona);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            }
-        }
-    }
-
-    public void eliminar(Persona persona) {
-
-        try {
-            entityManager.getTransaction().begin();
-            if (!entityManager.contains(persona)) {
-                persona = entityManager.merge(persona);
-            }
-            entityManager.remove(persona);
-            entityManager.getTransaction().commit();
-            personas.remove(persona);
-        } catch (Exception e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            }
-           
-        }
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public List<Persona> getPersonas() {
-        return personas;
+        return dao.findAll();
     }
 
-    public void setEjemplos(List<Persona> personas) {
-        this.personas = personas;
+    public String add() {
+        dao.create(persona);
+        persona = new Persona();
+        return "index?faces-redirect=true";  // navega de nuevo al inicio
     }
 
-    public Persona getNuevaPersona() {
-        return nuevaPersona;
+    public String delete(Long id) {
+        dao.delete(id);
+        return "index?faces-redirect=true";
     }
 
-    public void setNuevaPersona(Persona nuevaPersona) {
-        this.nuevaPersona = nuevaPersona;
-    }
-
+    
+    
 }
