@@ -45,14 +45,26 @@ public class PersonaBean implements Serializable {
     public String add() {
         dao.create(persona);
         persona = new Persona();
-        return "index?faces-redirect=true";  // navega de nuevo al inicio
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro creado con éxito."));
+        return "index?faces-redirect=true";  
     }
 
     public String delete(Long id) {
         dao.delete(id);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro eliminado con éxito."));
+
         return "index?faces-redirect=true";
     }
 
-    
-    
+    public String edit(Long id) {
+        this.persona = dao.findById(id);
+        return "edit?faces-redirect=true";  
+    }
+
+    public String update() {
+        dao.update(persona.getClave(), persona); 
+        persona = new Persona();  
+        return "index?faces-redirect=true";  
+    }
+
 }

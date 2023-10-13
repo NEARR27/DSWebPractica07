@@ -26,6 +26,12 @@ public class LoginBean {
             return "login";
         }
     }
+    
+    public String logout() {
+    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    return "Login?faces-redirect=true";
+}
+
 
     public String getNombre_usuario() {
         return nombre_usuario;
