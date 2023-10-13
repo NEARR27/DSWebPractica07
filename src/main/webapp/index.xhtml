@@ -9,61 +9,34 @@
     </h:head>
     <h:body>
 
+        <h:form>
+            <!-- InputTexts con estilo de PrimeFaces -->
+            <p:inputText value="#{personaBean.persona.clave}" placeholder="Clave" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+            <p:inputText value="#{personaBean.persona.nombre}" placeholder="Nombre" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+            <p:inputText value="#{personaBean.persona.direccion}" placeholder="Dirección" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+            <p:inputText value="#{personaBean.persona.telefono}" placeholder="Teléfono" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+            <p:commandButton value="Agregar" action="#{personaBean.add}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" icon="ui-icon-plus"/>
 
-        <h:form id="mainForm" >
-            <h5>Datos</h5>
-            <!-- Campo para la clave -->
-            <span class="ui-float-label">
-                <p:inputText id="float-clave" value="#{personaBean.nuevaPersona.clave}"/>
-                <p:outputLabel for="@previous" value="clave"/>
-            </span>
-            <br/>
-            <span class="ui-float-label">
-                <p:inputText id="float-nombre" value="#{personaBean.nuevaPersona.nombre}"/>
-                <p:outputLabel for="@previous" value="nombre"/>
-            </span>
-            <br/>
-            <span class="ui-float-label">
-                <p:inputText id="float-direccion" value="#{personaBean.nuevaPersona.direccion}"/>
-                <p:outputLabel for="@previous" value="direccion"/>
-            </span>
-            <br/>
-            <span class="ui-float-label">
-                <p:inputText id="float-telefono" value="#{personaBean.nuevaPersona.telefono}"/>
-                <p:outputLabel for="@previous" value="telefono"/>
-            </span>
-            <br/>
-
-            <h:commandButton value="Agregar" action="#{personaBean.agregar}" />
+            <!-- DataTable con estilo de PrimeFaces -->
+            <p:dataTable value="#{personaBean.personas}" var="p" styleClass="ui-datatable ui-widget">
+                <p:column headerText="Nombre">
+                    #{p.clave}
+                </p:column>
+                <p:column headerText="Nombre">
+                    #{p.nombre}
+                </p:column>
+                <p:column headerText="Dirección">
+                    #{p.direccion}
+                </p:column>
+                <p:column headerText="Teléfono">
+                    #{p.telefono}
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Eliminar" action="#{personaBean.delete(p.clave)}" icon="ui-icon-trash" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"/>
+                    <!-- Añade botones similares para editar y otras operaciones aquí -->
+                </p:column>
+            </p:dataTable>
         </h:form>
-
-        <p:dataTable id="tablaPrincipal" value="#{personaBean.personas}" var="persona" paginator="true" rows="10" styleClass="YOUR_STYLE_HERE" rowKey="#{persona.clave}">
-
-            <p:column headerText="Clave">
-                <p:inputText value="#{persona.clave}" />
-            </p:column>
-
-            <p:column headerText="Nombre">
-                <p:inputText value="#{persona.nombre}" />
-            </p:column>
-
-            <p:column headerText="Dirección">
-                <p:inputText value="#{persona.direccion}" />
-            </p:column>
-
-            <p:column headerText="Teléfono">
-                <p:inputText value="#{persona.telefono}" />
-            </p:column>
-
-            <p:column>
-                <p:commandButton value="Actualizar" action="#{personaBean.actualizar(persona)}" />
-                <p:commandButton value="Eliminar" action="#{personaBean.eliminar(persona)}" >
-                
-                </p:commandButton>
-            </p:column>
-
-        </p:dataTable>
-
     </h:body>
 </html>
 

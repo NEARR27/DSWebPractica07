@@ -21,7 +21,8 @@ import javax.persistence.Table;
 public class Persona implements Serializable{
     
     @Id
-    private Integer clave;
+    @Column(name= "clave")
+    private Long clave;
 
     @Column(name = "nombre")
     private String nombre;
@@ -35,18 +36,18 @@ public class Persona implements Serializable{
     public Persona() {
     }
 
-    public Persona(Integer clave, String nombre, String direccion, String telefono) {
+    public Persona(Long clave, String nombre, String direccion, String telefono) {
         this.clave = clave;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
     }
 
-    public Integer getClave() {
+    public Long getClave() {
         return clave;
     }
 
-    public void setClave(Integer clave) {
+    public void setClave(Long clave) {
         this.clave = clave;
     }
 
