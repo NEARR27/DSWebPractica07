@@ -23,8 +23,14 @@
             }
         </style>
     </h:head>
+
     <h:body>
 
+        <h:panelGrid columns="2" style="margin-bottom:20px;">
+            <p:button value="Agregar Cliente" outcome="/AgregarCliente" icon="ui-icon-person" />
+            <p:button value="Agregar Producto" outcome="/AgregarProducto" icon="ui-icon-box" />
+            <p:button value="Crear Venta" outcome="/CrearVenta" icon="ui-icon-box" />
+        </h:panelGrid>
 
 
 
@@ -40,7 +46,7 @@
                     <p:commandButton value="Agregar" action="#{personaBean.add}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" icon="ui-icon-plus">
                         <p:ajax update="msgs" />
                     </p:commandButton>
-                    
+
                     <br></br>
 
 

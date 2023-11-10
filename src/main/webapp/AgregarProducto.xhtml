@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+   
+    <h:head>
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="productoForm">
+            <p:growl id="messages" showDetail="true" />
+
+            <p:panel header="Agregar Nuevo Producto">
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <h:outputLabel for="nombre" value="Nombre:" />
+                    <p:inputText id="nombre" value="#{productoBean.productoSeleccionado.nombre}" required="true" requiredMessage="El nombre es obligatorio." />
+
+                    <h:outputLabel for="precio" value="Precio:" />
+                    <p:inputText id="precio" value="#{productoBean.productoSeleccionado.precio}">
+    <f:convertNumber type="currency" currencySymbol="$" locale="en_US" />
+</p:inputText>
+
+                    <h:outputLabel for="descripcion" value="Descripción:" />
+                    <p:inputTextarea id="descripcion" value="#{productoBean.productoSeleccionado.descripcion}" rows="5" cols="30" />
+
+                    <p:commandButton value="Agregar" action="#{productoBean.createProducto}" update=":productoForm:messages :productoForm:productosTable" />
+                    <p:commandButton value="Limpiar" type="reset" />
+
+                </h:panelGrid>
+            </p:panel>
+
+            <p:dataTable id="productosTable" var="prod" value="#{productoBean.listaProductos}" editable="true" editMode="cell">
+                <p:column headerText="ID">
+                    <h:outputText value="#{prod.idProducto}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{prod.nombre}" />
+                </p:column>
+
+                <p:column headerText="Precio">
+                    <h:outputText value="#{prod.precio}" />
+                </p:column>
+
+                <p:column headerText="Descripción">
+                    <h:outputText value="#{prod.descripcion}" />
+                </p:column>
+
+                <p:column headerText="Acciones" style="width:50px">
+                    <p:commandButton icon="ui-icon-pencil" update=":productoForm:productosTable" oncomplete="PF('productoDialog').show()" />
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{productoBean.deleteProducto}" update=":productoForm:messages, :productoForm:productosTable" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <p:dialog header="Editar Producto" widgetVar="productoDialog" modal="true" resizable="false" draggable="false">
+            <h:form>
+                <h:panelGrid id="editGrid" columns="2" cellpadding="5">
+                    <h:outputLabel for="editNombre" value="Nombre:" />
+                    <p:inputText id="editNombre" value="#{productoBean.productoSeleccionado.nombre}" />
+
+                    <h:outputLabel for="editPrecio" value="Precio:" />
+                    <p:inputText id="editPrecio" value="#{productoBean.productoSeleccionado.precio}">
+                        <f:convertNumber type="currency" currencySymbol="$" />
+                    </p:inputText>
+
+                    <h:outputLabel for="editDescripcion" value="Descripción:" />
+                    <p:inputTextarea id="editDescripcion" value="#{productoBean.productoSeleccionado.descripcion}" rows="5" cols="30" />
+
+                    <p:commandButton value="Guardar Cambios" action="#{productoBean.updateProducto}" oncomplete="PF('productoDialog').hide()" update=":productoForm:messages, :productoForm:productosTable" />
+                    <p:commandButton value="Cancelar" onclick="PF('productoDialog').hide()" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

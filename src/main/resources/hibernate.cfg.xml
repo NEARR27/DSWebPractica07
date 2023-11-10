@@ -22,9 +22,15 @@
         
         <!-- Echo all executed SQL to stdout -->
         <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         
         <!-- Mention annotated class here -->
         <!-- <mapping class="com.example.YourEntityClass"/> -->
         <mapping class="com.uv.Persona"/>
+        <mapping class="com.uv.venta2.Cliente"/>
+        <mapping class="com.uv.venta2.Venta"/>
+        <mapping class="com.uv.venta2.VentaDetalle"/>
+        <mapping class="com.uv.venta2.Producto"/>
+
     </session-factory>
 </hibernate-configuration>
