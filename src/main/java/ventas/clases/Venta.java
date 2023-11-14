@@ -45,7 +45,6 @@ public class Venta implements Serializable {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idcliente",referencedColumnName = "idcliente")
-    //@Column(name = "idcliente")
     private Cliente cli;
     
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "venta")

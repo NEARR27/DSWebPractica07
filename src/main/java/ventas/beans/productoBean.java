@@ -8,6 +8,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import org.primefaces.event.RowEditEvent;
 import ventas.clases.Producto;
 import ventas.dao.productoDAO;
@@ -28,19 +29,27 @@ public class productoBean implements Serializable {
     public void addProducto() {
         productoDAO.create(producto);
         producto = new Producto();
+        loadProductos();
     }
 
     public void deleteProducto(Long idProducto) {
         productoDAO.delete(idProducto);
+        loadProductos();
     }
 
     public void updateProducto() {
         productoDAO.update(producto.getIdProducto(), producto);
         producto = new Producto();
+        loadProductos();
     }
 
     public void loadProductos() {
         productos = productoDAO.findAll();
+    }
+    
+    @PostConstruct
+    public void init() {
+        loadProductos();
     }
 
     public void onRowEdit(RowEditEvent<Producto> event) {
@@ -59,7 +68,6 @@ public class productoBean implements Serializable {
     }
 
     public List<Producto> getProductos() {
-        loadProductos(); // Cargar productos al acceder a la lista
         return productos;
     }
 

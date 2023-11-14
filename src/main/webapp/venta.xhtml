@@ -25,26 +25,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
         <h:form>
             <p:outputLabel value="Cliente">
-                <p:selectOneMenu value="#{beanIndex.venta.cli}">
+                <p:selectOneMenu value="#{beanIndex.venta.cli}" converter="omnifaces.SelectItemsConverter">
                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}" />
                     <f:selectItems value="#{clienteBean.clientes}" var="cliente"
-                                   itemLabel="#{cliente.nombre}" itemValue="#{cliente.idCliente}" />
+                                   itemLabel="#{cliente.nombre}" itemValue="#{cliente}" />
                 </p:selectOneMenu>
             </p:outputLabel>
             
             <p:outputLabel value="Producto">
-                <p:selectOneMenu></p:selectOneMenu>
+                <p:selectOneMenu value="#{beanIndex.producto}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}" />
+                    <f:selectItems value="#{productoBean.productos}" var="producto"
+                                   itemLabel="#{producto.descripcion}" itemValue="#{producto}" />
+                </p:selectOneMenu>
             </p:outputLabel>
+            
             <p:outputLabel value="Cantidad">
-                <p:inputText></p:inputText>
+                <p:inputText value="#{beanIndex.cantidad}"></p:inputText>
             </p:outputLabel>
 
-            <p:commandButton value="Agregar"></p:commandButton>
+            <p:commandButton value="Agregar" actionListener="#{beanIndex.Agregar()}" update="detalle"></p:commandButton>
 
-            <p:dataTable>
-                <p:column headerText="Nombre Producto"></p:column>
-                <p:column headerText="Precio"></p:column>
-                <p:column headerText="Cantidad"></p:column>
+            <p:dataTable id="detalle" value="#{beanIndex.lista}" var="vet">
+                <p:column headerText="Nombre Producto">#{vet.producto.descripcion}</p:column>
+                <p:column headerText="Precio">#{vet.producto.precio}</p:column>
+                <p:column headerText="Cantidad">#{vet.cantidad}</p:column>
 
 
             </p:dataTable>

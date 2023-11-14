@@ -69,5 +69,36 @@ public class Cliente implements Serializable{
     public void setVentas(List<Venta> ventas) {
         this.ventas = ventas;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "idCliente=" + idCliente + ", nombre=" + nombre + '}';
+    }
+
+   
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + this.idCliente;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        return this.idCliente == other.idCliente;
+    }
+    
+    
 }
 
