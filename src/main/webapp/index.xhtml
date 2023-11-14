@@ -26,63 +26,53 @@
 
     <h:body>
 
-        <h:panelGrid columns="2" style="margin-bottom:20px;">
-            <p:button value="Agregar Cliente" outcome="/AgregarCliente" icon="ui-icon-person" />
-            <p:button value="Agregar Producto" outcome="/AgregarProducto" icon="ui-icon-box" />
-            <p:button value="Crear Venta" outcome="/CrearVenta" icon="ui-icon-box" />
-        </h:panelGrid>
+        <h:form id="form">
+            <p:panelGrid columns="2">
+                <p:outputLabel for="descripcion" value="Descripción:"/>
+                <p:inputText id="descripcion" value="#{productoBean.producto.descripcion}"/>
 
+                <p:outputLabel for="precio" value="Precio:"/>
+                <p:inputText id="precio" value="#{productoBean.producto.precio}"/>
 
+                <p:commandButton value="Añadir" action="#{productoBean.addProducto}" update="productoTable"/>
+                
+                
+            </p:panelGrid>
+            
+            <p:button value="Ir a Clientes" outcome="cliente.xhtml" />
+            <p:button value="Ir a ventas" outcome="venta.xhtml" />
 
-        <div class="main-container">
-            <div class="content">
-                <h:form>
-                    <p:growl id="msgs" showDetail="true" sticky="false" />
-                    <!-- InputTexts con estilo de PrimeFaces -->
-                    <p:inputText value="#{personaBean.persona.clave}" placeholder="Clave" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-                    <p:inputText value="#{personaBean.persona.nombre}" placeholder="Nombre" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-                    <p:inputText value="#{personaBean.persona.direccion}" placeholder="Dirección" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-                    <p:inputText value="#{personaBean.persona.telefono}" placeholder="Teléfono" styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-                    <p:commandButton value="Agregar" action="#{personaBean.add}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" icon="ui-icon-plus">
-                        <p:ajax update="msgs" />
-                    </p:commandButton>
+            <p:dataTable id="productoTable" value="#{productoBean.productos}" var="producto" editable="true" editMode="row">
 
-                    <br></br>
+                <p:column headerText="ID Producto">
+                    #{producto.idProducto}
+                </p:column>
 
+                <p:column headerText="Descripción">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{producto.descripcion}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{producto.descripcion}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-                    <p:dataTable value="#{personaBean.personas}" var="p" styleClass="ui-datatable ui-widget">
-                        <p:column headerText="Nombre">
-                            #{p.clave}
-                        </p:column>
-                        <p:column headerText="Nombre">
-                            #{p.nombre}
-                        </p:column>
-                        <p:column headerText="Dirección">
-                            #{p.direccion}
-                        </p:column>
-                        <p:column headerText="Teléfono">
-                            #{p.telefono}
-                        </p:column>
-                        <p:column>
-                            <p:commandButton value="Actualizar" action="#{personaBean.edit(p.clave)}" icon="ui-icon-trash" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"/>
+                <p:column headerText="Precio">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{producto.precio}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{producto.precio}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-                            <p:commandButton value="Eliminar" action="#{personaBean.delete(p.clave)}" icon="ui-icon-trash" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"/>
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
 
+                <p:column>
+                    <p:commandButton value="Borrar" action="#{productoBean.deleteProducto(producto.idProducto)}" update=":form:productoTable"/>
+                </p:column>
 
-                        </p:column>
-                    </p:dataTable>
-                    <br></br>
-
-                    <!-- Botón Logout al final -->
-                    <p:commandButton value="Logout" action="#{loginBean.logout}" 
-                                     icon="ui-icon-exit" 
-                                     styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left logout-button"/>
-                </h:form>
-            </div>
-
-
-        </div>
-
+                <p:ajax event="rowEdit" listener="#{productoBean.onRowEdit}" update=":form:productoTable" />
+            </p:dataTable>
+        </h:form>
 
     </h:body>
 </html>

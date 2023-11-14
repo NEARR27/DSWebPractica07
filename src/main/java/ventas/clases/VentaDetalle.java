@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.uv.venta2;
+package ventas.clases;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 /**
  *
@@ -23,7 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "venta_detalle")
-public class VentaDetalle implements Serializable {
+public class VentaDetalle {
 
     @Id
     @GeneratedValue(generator = "venta_detalle_iddetalleventa_seq", strategy = GenerationType.SEQUENCE)
@@ -36,8 +36,6 @@ public class VentaDetalle implements Serializable {
     @JoinColumn(name = "idventa", referencedColumnName = "idventa")
     private Venta venta;
 
-    @Column(name = "idproducto")
-    private int idProducto;
 
     @Column(name = "precio")
     private BigDecimal precio;
@@ -47,9 +45,9 @@ public class VentaDetalle implements Serializable {
 
     @Column(name = "cantidad")
     private int cantidad;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto", insertable = false, updatable = false)
+    
+     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idproducto", referencedColumnName = "idProducto")
     private Producto producto;
 
     public int getIdDetalleVenta() {
@@ -68,13 +66,7 @@ public class VentaDetalle implements Serializable {
         this.venta = venta;
     }
 
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
-    }
+    
 
     public BigDecimal getPrecio() {
         return precio;
@@ -99,17 +91,17 @@ public class VentaDetalle implements Serializable {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    
+    public Producto getProducto() {
+        return producto;
+    }
 
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-
-    public Producto getProducto() {
-        return producto;
-    }
     
-    
-    
-    
-
+    public BigDecimal getTotal() {
+    BigDecimal precio = BigDecimal.valueOf(producto.getPrecio());
+    return precio.multiply(BigDecimal.valueOf(cantidad));
+}
 }

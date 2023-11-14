@@ -3,7 +3,7 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://172.17.0.2:5432/mydb</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://172.17.0.3:5432/mydb</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">postgres</property>
         
@@ -27,10 +27,11 @@
         <!-- Mention annotated class here -->
         <!-- <mapping class="com.example.YourEntityClass"/> -->
         <mapping class="com.uv.Persona"/>
-        <mapping class="com.uv.venta2.Cliente"/>
-        <mapping class="com.uv.venta2.Venta"/>
-        <mapping class="com.uv.venta2.VentaDetalle"/>
-        <mapping class="com.uv.venta2.Producto"/>
-
+        <mapping class="ventas.clases.Cliente"/>
+        <mapping class="ventas.clases.Producto"/>
+        <mapping class="ventas.clases.Usuario"/>
+        <mapping class="ventas.clases.Venta"/>
+        <mapping class="ventas.clases.VentaDetalle"/>
+        
     </session-factory>
 </hibernate-configuration>

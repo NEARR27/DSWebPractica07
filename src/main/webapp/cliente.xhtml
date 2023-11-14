@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Gestión de Clientes</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="form">
+            <p:panelGrid columns="2">
+                <p:outputLabel for="nombre" value="Nombre:"/>
+                <p:inputText id="nombre" value="#{clienteBean.cliente.nombre}"/>
+
+                <p:outputLabel for="rfc" value="RFC:"/>
+                <p:inputText id="rfc" value="#{clienteBean.cliente.rfc}"/>
+
+                <p:commandButton value="Añadir" action="#{clienteBean.addCliente}" update=":form:clienteTable"/>
+                
+               
+            </p:panelGrid>
+            
+            
+            
+
+            <p:dataTable id="clienteTable" value="#{clienteBean.clientes}" var="cliente" editable="true" editMode="row">
+
+                <p:column headerText="ID Cliente">
+                    #{cliente.idCliente}
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{cliente.nombre}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{cliente.nombre}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="RFC">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{cliente.rfc}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{cliente.rfc}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+
+                <p:column>
+                    <p:commandButton value="Borrar" action="#{clienteBean.deleteCliente(cliente.idCliente)}" update=":form:clienteTable"/>
+                </p:column>
+
+                <p:ajax event="rowEdit" listener="#{clienteBean.onRowEdit}" update=":form:clienteTable" />
+            </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>

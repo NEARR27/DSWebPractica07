@@ -1,35 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.uv.venta2;
 
-import java.io.Serializable;
+package ventas.clases;
+
+import java.util.List;
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.util.List;
-import javax.persistence.FetchType;
+import java.io.Serializable;
 
 /**
  *
  * @author near
  */
 @Entity
-@Table(name = "cliente")
-public class Cliente implements  Serializable {
+@Table(name ="cliente")
+public class Cliente implements Serializable{
     
     @Id
     @GeneratedValue(generator = "cliente_idcliente_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "cliente_idcliente_seq",sequenceName = "cliente_idcliente_seq",
             initialValue = 1,allocationSize = 1)
     @Column(name = "idcliente")
-    private Integer idCliente;
+    private int idCliente;
     
     @Column(name = "nombre")
     private String nombre;
@@ -37,10 +35,10 @@ public class Cliente implements  Serializable {
     @Column(name = "rfc")
     private String rfc;
     
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "cliente")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "cli")
     private List<Venta> ventas;
 
-    public Integer getIdCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 
@@ -71,6 +69,5 @@ public class Cliente implements  Serializable {
     public void setVentas(List<Venta> ventas) {
         this.ventas = ventas;
     }
-    
-    
 }
+

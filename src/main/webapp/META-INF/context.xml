@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/DSWebPractica07">
-    <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/YourDS" password="postgres" type="javax.sql.DataSource" url="jdbc:postgresql://172.17.0.2:5432/mydb" username="postgres"/>
+    <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/YourDS" password="postgres" type="javax.sql.DataSource" url="jdbc:postgresql://172.17.0.3:5432/mydb" username="postgres"/>
 </Context>
